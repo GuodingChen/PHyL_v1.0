@@ -7,7 +7,7 @@ A massively parallel framework for regional floods and landslides modeling
 
 
 
-```
+```python
 📦PHyL_v1.0
  ┣ 📂Build
  ┣ 📂DownscalingBasicData
@@ -33,7 +33,7 @@ A massively parallel framework for regional floods and landslides modeling
  ┃ ┗ 📜slope_fine.asc
  ┣ 📂OBS
  ┃ ┗ 📋Yuehe_Obs.csv
- ┣ 📂PETs
+ ┣ 📂PETs (only )
  ┃ ┣ 📜pet2012062700.asc
  ┃ ┣ 📜pet2012062701.asc
  ┃ ┣ 📜pet2012062702.asc
