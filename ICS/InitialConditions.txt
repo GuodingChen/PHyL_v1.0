@@ -1,0 +1,17 @@
+################################################################################
+# CREST Initial Conditions File Format (Version more than 2.0)
+# For Example:
+#WU0Type	=	Uniform   # Uniform/Distributed
+#WU0		=	24.230076	
+################################################################################
+
+################################################################################
+WU0Type	=	Uniform	# The factor to modify the area of grid cells
+WU0		=	30
+################################################################################
+SS0Type		=	Uniform	# The factor to modify the area of grid cells
+SS0		=	20
+################################################################################
+SI0Type		=	Uniform	# The factor to modify the area of grid cells
+SI0		=	20
+################################################################################

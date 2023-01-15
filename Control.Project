@@ -1,0 +1,131 @@
+##########################################################################
+# CREST Project File Format (Version more than 2.0)
+##########################################################################
+Version		=	2.0
+##########################################################################
+# MODEL AREA 
+##########################################################################
+# Hydrological map
+NCols_Hydro		=	598	# Number of columns
+NRows_Hydro		=	650	# Number of rows
+XLLCorner_Hydro		=	108.335815
+YLLCorner_Hydro		=	32.654663
+CellSize_Hydro		=	0.000833	
+# Landslide map	
+NCols_Land		=	3481	# Number of columns
+NRows_Land		=	3891	# Number of rows
+XLLCorner_Land		=	108.354919
+YLLCorner_Land		=	32.674500
+CellSize_Land		=	0.000125	
+# define the invalid value
+NoData_value	=	-9999
+##########################################################################
+# Model map Coordinate System
+# Geographic Coordinate System: GCS
+# Projected Coordinate System: PCS
+CoordinateSystem = GCS
+##########################################################################
+# MODEL Run Time Information
+# y(year);m(month);d(day);h(hour);u(minute);s(second)
+##########################################################################
+TimeMark		=	h
+TimeStep		=	1
+StartDate		= 	2012070201   # 2012070208
+LoadState		=	yes
+WarmupDate		=	2012070201
+EndDate			= 	2012070920  # 2012070920
+SaveState		=	no
+##########################################################################
+# MODEL Run Style
+##########################################################################
+RunStyle = simu	# simu, cali_SCEUA, RealTime, repe
+ModelCore = HydroSlide3D    # Hydro, HydroSlide3D
+##########################################################################
+# Routing scheme
+RoutingType =CLR		# JLR (default), CLR
+##########################################################################
+# MODEL Directory
+# Format: "ASC", "TXT", "DBIF","BIFFIT", 
+#	"TRMMRT", "TRMMV6", "NMQBIN", "ASBIMO", "BIBIMO"
+##########################################################################
+HydroBasicFormat	=	asc 
+HydroBasicPath	=	"./HydroBasics/"
+##########################################################################
+SoilDownscaleFormat	=	asc 
+SoilDownscalePath	=	"./DownscalingBasicData/"
+##########################################################################
+LandslideFormat	=	asc 
+LandslidePath	=	"./LandslideBasics/"
+##########################################################################
+ParamFormat	=	asc
+ParamPath	=	"./Params/"
+##########################################################################
+StateFormat	=	asc
+StatePath	=	"./States/"
+##########################################################################
+ICSFormat	=	asc
+ICSPath		=	"./ICS/"
+##########################################################################
+RainFormat	=	asc
+RainPath	=	"./Rains/rain"
+##########################################################################
+PETFormat	=	asc
+PETPath		=	"./PETs/pet"
+##########################################################################
+ResultFormat	=	asc  # asc, hdf5
+ResultPath	=	"./Results/"
+##########################################################################
+CalibFormat	=	asc
+CalibPath	=	"./Calibs/"
+##########################################################################
+OBSFormat	=	asc
+OBSPath		=	"./OBS/"
+##########################################################################
+# The below data are omitted, when RunStyle=cali_SCEUA
+##########################################################################
+#OutPix Information
+##########################################################################
+NOutPixs		=	 0
+OutPixColRow 	=	no
+OutPixName1 	=	Yuehe
+OutPixLong1	=	108.7737
+OutPixLati1		=	32.7327747
+OutPixCol1		=	 0
+OutPixRow1 	= 	120
+##########################################################################
+#Outlet Information
+##########################################################################
+HasOutlet		=	yes
+OutletColRow	=	no
+OutletName		=	Yuehe
+OutletLong		=	108.773696
+OutletLati		=	32.732192
+OutletCol		=	0
+OutletRow		=	0
+#Grid Outputs
+##########################################################################
+GOVar_Rain		=	no
+GOVar_PET		=	no
+GOVar_EPot		=	no
+GOVar_EAct		=	no
+GOVar_W		= no
+GOVar_SM		=	no
+GOVar_R		=	no
+GOVar_ExcS		=	no
+GOVar_ExcI		=	no
+GOVar_RS		=	no
+GOVar_RI		=	no
+GOVar_FS3D		=	no
+GOVar_PF		=	no
+GOVar_FVolume		=	no
+GOVar_FArea		=	no
+##########################################################################
+NumOfOutputDates	=	1      #3
+#OutputDate_1 = 2012070400
+#OutputDate_2 = 2012070403
+#OutputDate_3 = 2012070406
+OutputDate_1 = 2012070412
+#OutputDate_5 = 2012070500
+#OutputDate_6 = 2012070600
+
+##########################################################################
