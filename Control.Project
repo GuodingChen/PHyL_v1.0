@@ -1,7 +1,7 @@
 ##########################################################################
-# CREST Project File Format (Version more than 2.0)
+# PHyL Control file for simulating information
 ##########################################################################
-Version		=	2.0
+Version		=	1.0
 ##########################################################################
 # MODEL AREA 
 ##########################################################################
@@ -30,10 +30,10 @@ CoordinateSystem = GCS
 ##########################################################################
 TimeMark		=	h
 TimeStep		=	1
-StartDate		= 	2012070201   # 2012070208
-LoadState		=	yes
+StartDate		= 	2012062700   # 2012070208
+LoadState		=	no
 WarmupDate		=	2012070201
-EndDate			= 	2012070920  # 2012070920
+EndDate			= 	2012062704  # 2012070920
 SaveState		=	no
 ##########################################################################
 # MODEL Run Style
@@ -43,10 +43,6 @@ ModelCore = HydroSlide3D    # Hydro, HydroSlide3D
 ##########################################################################
 # Routing scheme
 RoutingType =CLR		# JLR (default), CLR
-##########################################################################
-# MODEL Directory
-# Format: "ASC", "TXT", "DBIF","BIFFIT", 
-#	"TRMMRT", "TRMMV6", "NMQBIN", "ASBIMO", "BIBIMO"
 ##########################################################################
 HydroBasicFormat	=	asc 
 HydroBasicPath	=	"./HydroBasics/"
@@ -120,12 +116,12 @@ GOVar_PF		=	no
 GOVar_FVolume		=	no
 GOVar_FArea		=	no
 ##########################################################################
-NumOfOutputDates	=	1      #3
-#OutputDate_1 = 2012070400
-#OutputDate_2 = 2012070403
-#OutputDate_3 = 2012070406
-OutputDate_1 = 2012070412
-#OutputDate_5 = 2012070500
-#OutputDate_6 = 2012070600
+NumOfOutputDates	=	6      # 6
+OutputDate_1 = 2012070400
+OutputDate_2 = 2012070403
+OutputDate_3 = 2012070406
+OutputDate_4 = 2012070412
+OutputDate_5 = 2012070500
+OutputDate_6 = 2012070600
 
 ##########################################################################

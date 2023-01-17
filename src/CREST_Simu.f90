@@ -266,13 +266,15 @@ subroutine CREST_Simu()
         end if
 
         !write(*,*)"Reading Rain File!"
-
+        
+        
         call ReadMatrixFile(TRIM(g_RainPath),  &
                 Rain,  &
                 g_NCols, g_NRows,g_XLLCorner,g_YLLCorner, &
                 g_CellSize,g_NoData_Value,bIsError,g_RainFormat, &
                 TRIM(strDate))
 
+        
 
         if(bIsError .eqv. .true.)then
             if(g_RunStyle==2)then !Added by Dr. Xianwu Xue 2011.4.16
@@ -299,7 +301,7 @@ subroutine CREST_Simu()
                 end where
             end if
         end if
-
+        
         ! calculate the hydrological state of channel pixels
         do i = 1, Npixel_channel
             ii = ChannelIndex_Rows(i)
@@ -509,9 +511,7 @@ subroutine CREST_Simu()
 
 
         !-------------hydrological parallel region end-----------------
-
-
-
+        
         ! calculate the soil moisture (SM) of hydrological model, unit: %
         where(g_Mask/=g_NoData_Value)
             g_SM = W*100.0/(g_tParams%WM)
