@@ -1,5 +1,5 @@
 ################################################################################
-# CREST Parameters File Format (Version more than 2.0)
+# Hydrological parameters
 # For Example:
 #coeMType		=	Uniform   # Uniform/Distributed
 #coeM		=	24.230076	

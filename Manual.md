@@ -152,7 +152,7 @@ The following file tree includes a detailed description:
 
 Note: the parameters without ranges are determined by inputs (e.g., soil texture or field data) or user-defined.
 
-#### Compile the PHyL
+#### ✅ Compile the PHyL
 
 Enter the folder and open the terminal:
 
@@ -192,238 +192,399 @@ make
 
 If all goes well, you will easily get the executable: PHyL_v1
 
-#### Run the PHyL for a real project
+#### ✅ Run the PHyL for a real project
 
 Users are recommended to prepare all the file as in our benchmark case. In order to facilitate our explanation of the use of the PHyL, we start from our own river basin, Yuehe project.
 
+##### ➡️ Basic setup for "📋Control.Project"
+
 Modify the "📋Control.Project" to finish the most of the setup: 
 
-1. Set the basic information of the hydrological and slope-stability module input
+✔️ Set the basic information of the hydrological and slope-stability module input
 
-   ```python
-   # Hydrological map  (basic information of the hydrological module input)
-   NCols_Hydro		=	598	# Number of columns
-   NRows_Hydro		=	650	# Number of rows
-   XLLCorner_Hydro		=	108.335815
-   YLLCorner_Hydro		=	32.654663
-   CellSize_Hydro		=	0.000833	
-   # Landslide map	(basic information of the slope-stability module input)
-   NCols_Land		=	3481	# Number of columns
-   NRows_Land		=	3891	# Number of rows
-   XLLCorner_Land		=	108.354919
-   YLLCorner_Land		=	32.674500
-   CellSize_Land		=	0.000125	
-   # define the invalid value
-   NoData_value	=	-9999
-   ```
+```python
+# Hydrological map  (basic information of the hydrological module input)
+NCols_Hydro		=	598	# Number of columns
+NRows_Hydro		=	650	# Number of rows
+XLLCorner_Hydro		=	108.335815
+YLLCorner_Hydro		=	32.654663
+CellSize_Hydro		=	0.000833	
+# Landslide map	(basic information of the slope-stability module input)
+NCols_Land		=	3481	# Number of columns
+NRows_Land		=	3891	# Number of rows
+XLLCorner_Land		=	108.354919
+YLLCorner_Land		=	32.674500
+CellSize_Land		=	0.000125	
+# define the invalid value
+NoData_value	=	-9999
+```
 
-2. Confirm computational coordinate system
+✔️ Confirm computational coordinate system
 
-   ```python
-   # Model map Coordinate System  
-   # Geographic Coordinate System: GCS
-   # Projected Coordinate System: PCS
-   CoordinateSystem = GCS 
-   ```
+```python
+# Model map Coordinate System  
+# Geographic Coordinate System: GCS
+# Projected Coordinate System: PCS
+CoordinateSystem = GCS 
+```
 
-3. Set the simulation time information
+✔️ Set the simulation time information
 
-   ```python
-   # MODEL Run Time Information
-   # y(year);m(month);d(day);h(hour);u(minute);s(second)
-   ##########################################################################
-   TimeMark		=	h
-   TimeStep		=	1
-   StartDate		= 	2012062700   
-   LoadState		=	no  # Switch to "yes" for warm-up simulation fashion
-   WarmupDate		=	2012070201  # Start date of the warm-up modeling
-   EndDate			= 	2012062704  
-   SaveState		=	no  # Store intermediate variables for the next warm start
-   ```
+```python
+# MODEL Run Time Information
+# y(year);m(month);d(day);h(hour);u(minute);s(second)
+##########################################################################
+TimeMark		=	h
+TimeStep		=	1
+StartDate		= 	2012062700   
+LoadState		=	no  # Switch to "yes" for warm-up simulation fashion
+WarmupDate		=	2012070201  # Start date of the warm-up modeling
+EndDate			= 	2012062704  
+SaveState		=	no  # Store intermediate variables for the next warm start
+```
 
-4. Set the model run style
+✔️ Set the model run style
 
-   ```python
-   # MODEL Run Style ("simu" is valid only in this version; "cali_SCEUA" is on the way) 
-   ##########################################################################
-   RunStyle = simu	# simu, cali_SCEUA
-   ModelCore = HydroSlide3D    # Hydro, HydroSlide3D (switch to "Hydro" for pure hydrological modeling)
-   ##########################################################################
-   # Routing scheme (Note: CLR is more advanced but time-consuming)
-   RoutingType =CLR		# JLR (default), CLR
-   ##########################################################################
-   ```
+```python
+# MODEL Run Style ("simu" is valid only in this version; "cali_SCEUA" is on the way) 
+##########################################################################
+RunStyle = simu	# simu, cali_SCEUA
+ModelCore = HydroSlide3D    # Hydro, HydroSlide3D (switch to "Hydro" for pure hydrological modeling)
+##########################################################################
+# Routing scheme (Note: CLR is more advanced but time-consuming)
+RoutingType =CLR		# JLR (default), CLR
+##########################################################################
+```
 
-5. Set input file format and path
+✔️ Set input file format and path
 
-   ```python
-   # Note: .asc format is default for basic input; both .asc and .hdf5 are optional for all outputs
-   HydroBasicFormat	=	asc 
-   HydroBasicPath	=	"./HydroBasics/"
-   ##########################################################################
-   SoilDownscaleFormat	=	asc 
-   SoilDownscalePath	=	"./DownscalingBasicData/"
-   ##########################################################################
-   LandslideFormat	=	asc 
-   LandslidePath	=	"./LandslideBasics/"
-   ##########################################################################
-   ParamFormat	=	asc
-   ParamPath	=	"./Params/"
-   ##########################################################################
-   StateFormat	=	asc
-   StatePath	=	"./States/"
-   ##########################################################################
-   ICSFormat	=	asc
-   ICSPath		=	"./ICS/"
-   ##########################################################################
-   RainFormat	=	asc
-   RainPath	=	"./Rains/rain"
-   ##########################################################################
-   PETFormat	=	asc
-   PETPath		=	"./PETs/pet"
-   ##########################################################################
-   ResultFormat	=	asc  # asc, hdf5  # be aware that .hdf5 is available 
-   ResultPath	=	"./Results/"
-   ##########################################################################
-   CalibFormat	=	asc
-   CalibPath	=	"./Calibs/"
-   ##########################################################################
-   OBSFormat	=	asc
-   OBSPath		=	"./OBS/"
-   ```
+```python
+# Note: .asc format is default for basic input; both .asc and .hdf5 are optional for all outputs
+HydroBasicFormat	=	asc 
+HydroBasicPath	=	"./HydroBasics/"
+##########################################################################
+SoilDownscaleFormat	=	asc 
+SoilDownscalePath	=	"./DownscalingBasicData/"
+##########################################################################
+LandslideFormat	=	asc 
+LandslidePath	=	"./LandslideBasics/"
+##########################################################################
+ParamFormat	=	asc
+ParamPath	=	"./Params/"
+##########################################################################
+StateFormat	=	asc
+StatePath	=	"./States/"
+##########################################################################
+ICSFormat	=	asc
+ICSPath		=	"./ICS/"
+##########################################################################
+RainFormat	=	asc
+RainPath	=	"./Rains/rain"
+##########################################################################
+PETFormat	=	asc
+PETPath		=	"./PETs/pet"
+##########################################################################
+ResultFormat	=	asc  # asc, hdf5  # be aware that .hdf5 is available 
+ResultPath	=	"./Results/"
+##########################################################################
+CalibFormat	=	asc
+CalibPath	=	"./Calibs/"
+##########################################################################
+OBSFormat	=	asc
+OBSPath		=	"./OBS/"
+```
 
-6. Custom output location
+✔️ Custom output location
 
-   ```python
-   #OutPix Information
-   # Defaults to 0, but can be any non-zero integer (>0) to output the region of interest
-   NOutPixs		=	 0
-   OutPixColRow 	=	no
-   OutPixName1 	=	Yuehe
-   OutPixLong1	=	108.7737
-   OutPixLati1		=	32.7327747
-   OutPixCol1		=	 0
-   OutPixRow1 	= 	120
-   ```
+```python
+#OutPix Information
+# Defaults to 0, but can be any non-zero integer (>0) to output the region of interest
+NOutPixs		=	 0
+OutPixColRow 	=	no
+OutPixName1 	=	Yuehe
+OutPixLong1	=	108.7737
+OutPixLati1		=	32.7327747
+OutPixCol1		=	 0
+OutPixRow1 	= 	120
+```
 
-7. Set the outlet information
+✔️ Set the outlet information
 
-   ```python
-   #Outlet Information
-   # "yes" for HasOutlet is necessary for this version
-   HasOutlet		=	yes
-   OutletColRow	=	no
-   OutletName		=	Yuehe
-   OutletLong		=	108.773696
-   OutletLati		=	32.732192
-   OutletCol		=	0
-   OutletRow		=	0
-   ```
+```python
+#Outlet Information
+# "yes" for HasOutlet is necessary for this version
+HasOutlet		=	yes
+OutletColRow	=	no
+OutletName		=	Yuehe
+OutletLong		=	108.773696
+OutletLati		=	32.732192
+OutletCol		=	0
+OutletRow		=	0
+```
 
-8. Decide whether to output 
+✔️ Decide whether to output 
 
-   ```python
-   #Grid Outputs
-   # Switch to "yes" to indicate willingness to output
-   GOVar_Rain		=	no
-   GOVar_PET			=	no
-   GOVar_EPot		=	no
-   GOVar_EAct		=	no
-   GOVar_W				= no
-   GOVar_SM			=	no
-   GOVar_R				=	no
-   GOVar_ExcS		=	no
-   GOVar_ExcI		=	no
-   GOVar_RS			=	no
-   GOVar_RI			=	no
-   GOVar_FS3D		=	no
-   GOVar_PF			=	no
-   GOVar_FVolume	=	no
-   GOVar_FArea		=	no
-   ```
+```python
+#Grid Outputs
+# Switch to "yes" to indicate willingness to output
+GOVar_Rain		=	no 
+GOVar_PET			=	no
+GOVar_EPot		=	no
+GOVar_EAct		=	no
+GOVar_W				= no
+GOVar_SM			=	no
+GOVar_R				=	no
+GOVar_ExcS		=	no
+GOVar_ExcI		=	no
+GOVar_RS			=	no
+GOVar_RI			=	no
+GOVar_FS3D		=	no
+GOVar_PF			=	no
+GOVar_FVolume	=	no
+GOVar_FArea		=	no
+```
 
-9. Custom output moments
+✔️ Custom output moments
 
-   ```python
-   # Defaults to 0, but can be any non-zero integer (>0) to output any moments of interest
-   # For example, if this is set to 6, only the following six moments will be output
-   NumOfOutputDates	=	0      # 6
-   OutputDate_1 = 2012070400
-   OutputDate_2 = 2012070403
-   OutputDate_3 = 2012070406
-   OutputDate_4 = 2012070412
-   OutputDate_5 = 2012070500
-   OutputDate_6 = 2012070600
-   ```
+```python
+# Defaults to 0, but can be any non-zero integer (>0) to output any moments of interest
+# For example, if this is set to 6, only the following six moments will be output
+NumOfOutputDates	=	0      # 6
+OutputDate_1 = 2012070400
+OutputDate_2 = 2012070403
+OutputDate_3 = 2012070406
+OutputDate_4 = 2012070412
+OutputDate_5 = 2012070500
+OutputDate_6 = 2012070600
+```
 
-Now, basic setup has been done. Let's move to parameter setting. 
+Now, basic setup has been done. Let's move to parameter setting, which is included in "Params" folder. The folder contains all parameters above that need to be assigned with specific value. Part of them are provided an option to be read in a distributed manner, which can be easily modified by users by choosing "Uniform" and "Distributed" pattern.
 
+##### ➡️ Modeling parameters setup
 
+✔️ Set the hydrological parameters: open the "Parameters_hydro.txt"
 
+```python
+################################################################################
+# Hydrological parameters
+# For Example:
+#coeMType		=	Uniform   # Uniform/Distributed
+#coeM		=	24.230076	
+################################################################################
+RainFactType	=	Uniform	# The factor to modify the precipitation field
+RainFact		=	1
+################################################################################
+KsatType		=	Distributed	# 
+Ksat			=	30
+################################################################################	
+WMType		=	Distributed	# 
+WM			=	120
+################################################################################	
+BType		=	Uniform	# 
+B		=	0.65
+################################################################################	
+IMType		=	Distributed	# 
+IM			=	0.05
+################################################################################	
+KEType		=	Uniform	# 
+KE			=	1.0
+################################################################################	
+coeMType 	=	Uniform	 #Overland flow speed multiplier
+coeM 		=	100
+################################################################################				
+expMType	=	Uniform	# 
+expM		=	0.45
+################################################################################	
+coeRType		=	Uniform	# 
+coeR		=	2
+################################################################################	
+coeSType		=	Uniform	# 
+coeS		=	0.3
+################################################################################	
+KSType		=	Uniform	# 
+KS		=	0.6
+################################################################################	
+KIType		=	Uniform	# 
+KI		=	0.25
+################################################################################	
+```
 
+Any parameter that is set to be “Distributed” needs to match the associated input. In this Yuehe basin case, three parameters ($K_{sat}$, $IM$, and $WM$) are set to be distributed. So in the current directory we can see their corresponding input: 📜IM.asc, 📜Ksat.asc, and 📜WM.asc. All the parameters that defined as format of "Uniform" are calibrated via observations.
 
+✔️ Set the landslide parameters: open the "Parameters_land.txt"
 
+```python
+################################################################################
+# Landslide module Parameters 
+################################################################################
+ellipse_density		=	50 # unit: -
+################################################################################
+min_ae			=	50    # unit: m
+################################################################################
+max_ae			=	100  # unit: m
+################################################################################
+min_be			=	30   # unit: m
+################################################################################
+max_be			=	60	# unit: m
+################################################################################
+min_ce			=	1	# unit: m
+################################################################################
+max_ce			=	4	# unit: m
+################################################################################
+cell_size		=	12.5  # unit: m
+################################################################################
+```
 
-#### Example of compiling and running the model in DelftBlue: The TU Delft supercomputer
+✔️ Set the parallel computational parameters: open the "Parameters_land.txt"
 
-- ##### Hardware
+```python
+################################################################################
+# parallel setup 
+# set the number of the subbasins
+N_Subbasin = 4
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# set the number of threads for hydrological modeling
+NHydroThread = 4
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# set the number of total decomposed tiles for 3D slope stability modeling
+Tot_tile = 20
+# set the number of threads for 3D slope stability modeling
+NLandThread = 6
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+```
 
-  CPU: 2x Intel XEON E5-6248R 24C 3.0GHz
+For the efficiency, $N_{sub}\geq N_{Hthread}$ and $N_{tile}\geq N_{Lthread}$ are recommended. In addition, $N_{Hthread}$ and $N_{Lthread}$ cannot exceed the total number of cores of the hardware. 
 
-  Cores: 48
+##### ➡️ Run the PHyL
 
-  Memory: 192 GB
+```
+./PHyL_v1
+```
 
-  SSD: 480 GB
+#### ✅ Calibration
 
-- ##### Load the necessary modules
+The current version supports manual adjustment of parameters within the ranges above. Streamflow observations from the local gauge stations are utilized for validation of the modeled discharge, along with which the statistical metrics such as Nash–Sutcliffe coefficient of efficiency (NSCE), Pearson correlation coefficient (CC), and relative bias are computed. **This requires an observation file in "OBS" folder (e.g., Yuehe_Obs.csv in this case)**.
 
-  DelftBlue requires loading modules hierarchically, i.e., modules need to be loaded with the right module paths. Other HPC systems are expected to behave in a similar manner. This system is based on [lmod](https://lmod.readthedocs.io/en/latest/). The module organization is hierarchical. This means, that the modules you see depend on the ones you loaded: for example, if you don't load `openmpi` you don't see `hdf5`, etc. The following are the necessary load packages:
+For the landslides, in-situ measurements (e.g., $L$, $W$, $V_L$, and $A_L$ of failures) will be ideal documents for model validation and refinement. Such data not only serve for evaluation but provide more hints for the constraint of random procedure and model preparation. Point-like landslides and landslide scars are both acceptable for evaluation (computed by $ROC-AUC$ method).
 
-  ```bash
-  module load 2022r2
-  module load openmpi
-  module load gcc/11.2.0
-  module load hdf5
-  module load cmake
-  ```
+#### ✅ Output
 
-- **Compile the model and run**
+Switch to "yes" in 📋Control.Project to confirm the outputs of the spatial patterns. Check all the results in the folder of "Results".
 
-  Create a new directory to store the compiled files (e.g., build)：
+**GOVar_Rain**: the input precipitation; unit is mm/hour.
 
-  ```
-  mkdir build
-  ```
+**GOVar_PET**: the input evapotranspiration; unit is mm/hour.
 
-  Enter the new directory:
+**GOVar_EPot**:  the potential ET; unit is mm/hour.
 
-  ```
-  cd build
-  ```
+**GOVar_EAct**: the actual ET; unit is mm/hour.
 
-  Compile the project:
+**GOVar_W**: the depth of water filling the pore space bucket "WM".
 
-  ```
-  cmake ..
-  ```
+**GOVar_SM**: degree of soil moisture. 
 
-  Link and built the target:
+**GOVar_R**: the simulated discharge of each grid cell; unit is $m³/s$.
 
-  ```
-  make
-  ```
+**GOVar_ExcS**: the depth of surface excess rain; unit is mm/hour.
 
-  Then you will find the executable file along with the `CMakeLists.txt`. You can simply run the model by:
+**GOVar_ExcI**: the depth of interflow excess rain; unit is mm/hour.
 
-  ```
-  ./PHyL
-  ```
+**GOVar_RS**: the depth of overland flow; unit is mm/hour.
 
-  Or you can submit your job using slurm workload manager with a `sbatch` command:
+**GOVar_RI**: the depth of interflow flow; unit is mm/hour.
 
-  ```
-  sbatch name-of-your-submission-script.sh
-  ```
+**GOVar_FS**: the factor of safety calculated by infinite stability model.
 
-  Finally, check the simulation results in the results directory. In addition, you can visualize them using our python script.
+**GOVar_FS3D**: the factor of safety calculated by 3D stability model.
+
+**GOVar_PF**: the probability of landslide occurrence.
+
+**GOVar_FVolume**: the volume of landslide; unit is $m^3$.
+
+**GOVar_FArea**: the surface area of landslide; unit is $m^2$.
+
+#### ✅ Visualization
+
+Enter the "Visualization" folder, run programs `Plot_all.py` and `VideoMaker.py` in sequence, and then check the generated figures and videos.
+
+#### ✅ Example of compiling and running the model in DelftBlue: The TU Delft supercomputer
+
+##### ➡️ Hardware
+
+CPU: 2x Intel XEON E5-6248R 24C 3.0GHz
+
+Cores: 48
+
+Memory: 192 GB
+
+SSD: 480 GB
+
+##### ➡️ Load the necessary modules
+
+DelftBlue requires loading modules hierarchically, i.e., modules need to be loaded with the right module paths. Other HPC systems are expected to behave in a similar manner. This system is based on [lmod](https://lmod.readthedocs.io/en/latest/). The module organization is hierarchical. This means, that the modules you see depend on the ones you loaded: for example, if you don't load `openmpi` you don't see `hdf5`, etc. The following are the necessary load packages:
+
+```bash
+module load 2022r2
+module load openmpi
+module load gcc/11.2.0
+module load hdf5
+module load cmake
+```
+
+➡️ **Compile the model and run**
+
+Create a new directory to store the compiled files (e.g., build)：
+
+```
+mkdir build
+```
+
+Enter the new directory:
+
+```
+cd build
+```
+
+Compile the project:
+
+```
+cmake ..
+```
+
+Link and built the target:
+
+```
+make
+```
+
+Then you will find the executable file along with the `CMakeLists.txt`. You can simply run the model by:
+
+```
+./PHyL
+```
+
+Or you can submit your job using slurm workload manager with a `sbatch` command:
+
+```
+sbatch name-of-your-submission-script.sh
+```
+
+Finally, check the simulation results in the results directory. In addition, you can visualize them using our python script.
+
+#### ✅ Contacts
+
+➡️ Ke Zhang ([kzhang@hhu.edu.cn](mailto:kzhang@hhu.edu.cn))
+
+➡️ Guoding Chen ([cgdwork@hhu.edu.cn](mailto:cgdwork@hhu.edu.cn))
+
+#### ✅ Related papers:
+
+Chen G, Zhang K, Wang S, et al. iHydroSlide3D v1. 0: an advanced hydrological-geotechnical model for hydrological simulation and three-dimensional landslide prediction[J]. Geoscientific Model Development Discussions, 2021: 1-35.
+
+Zhang, K., Xue, X., Hong, Y., Gourley, J. J., Lu, N., Wan, Z., Hong, Z., and Wooten, R.: iCRESTRIGRS: A coupled modeling system for cascading Flood–Landslide disaster forecasting, Hydrology and Earth System Sciences, 20, 5035–5048, 10.5194/hess-20-5035-2016, 2016.
+
+Wang, S., Zhang, K., van Beek, L. P. H., Tian, X., and Bogaard, T. A.: Physically-based landslide prediction over a large region: Scaling low-resolution hydrological model results for high-resolution slope stability assessment, Environmental Modelling & Software, 124, 104607, 10.1016/j.envsoft.2019.104607, 2020.
+
+Zhang, Y., Schaap, M. G., and Zha, Y.: A High-Resolution Global Map of Soil Hydraulic Properties Produced by a Hierarchical Parameterization of a Physically Based Water Retention Model, Water Resources Research, 54, 9774–9790, 10.1029/2018WR023539, 2018.
+
+Mergili, M., Marchesini, I., Alvioli, M., Metz, M., Schneider-Muntau, B., Rossi, M., and Guzzetti, F.: A strategy for GIS-Based 3-D slope stability modelling over large areas, Geoscientific Model Development, 7, 2969–2982, 10.5194/gmd-7-2969-2014, 2014a.		

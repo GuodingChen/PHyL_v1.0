@@ -116,7 +116,7 @@ GOVar_PF		=	no
 GOVar_FVolume		=	no
 GOVar_FArea		=	no
 ##########################################################################
-NumOfOutputDates	=	6      # 6
+NumOfOutputDates	=	0      # 6
 OutputDate_1 = 2012070400
 OutputDate_2 = 2012070403
 OutputDate_3 = 2012070406
