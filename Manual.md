@@ -573,9 +573,9 @@ Finally, check the simulation results in the results directory. In addition, you
 
 #### ✅ Contacts
 
-➡️ Ke Zhang ([kzhang@hhu.edu.cn](mailto:kzhang@hhu.edu.cn))
-
 ➡️ Guoding Chen ([cgdwork@hhu.edu.cn](mailto:cgdwork@hhu.edu.cn))
+
+➡️ Ke Zhang ([kzhang@hhu.edu.cn](mailto:kzhang@hhu.edu.cn))
 
 #### ✅ Related papers:
 
