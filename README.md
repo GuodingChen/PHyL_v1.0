@@ -5,11 +5,17 @@ PHyL is an open-source, **p**arallelized, and modular modeling software for regi
 
 #### ✅ Install the PHyL v1.0
 
-Enter the folder and open the terminal:
+##### ➡️ Install using Git
+
+If you are a git user, you can install the PHyL and keep up to date by cloning the repo:
 
 ```
 git clone https://github.com/GuodingChen/PHyL_v1.0.git
 ```
+
+##### ➡️ Install manually
+
+Download using the [GitHub .zip download](https://github.com/GuodingChen/PHyL_v1.0/archive/refs/tags/v1.0.zip) option and unzip them.
 
 #### ✅ Use the PHyL v1.0
 

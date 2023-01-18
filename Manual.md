@@ -23,7 +23,7 @@ PHyL is an open-source, **p**arallelized, and modular modeling software for regi
 #### Software (or environment) requirements
 
 - CMake$\geq$3.23
-- Fortran compiler: GNU$\geq$11.2, Intel oneAPI
+- Fortran compiler: GNU$\geq$11.2 or Intel oneAPI (GNU is recommended)
 - OpenMP$\geq$4.5
 - HDF5$\geq$1.10.*
 - Python$\geq$3.8
