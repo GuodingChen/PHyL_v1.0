@@ -263,7 +263,7 @@ subroutine GetSoilParaFrom_SoilCode(SOIL_CODE, SoilCohesion, Friction_angle, &
             VG_n = 1.64
 
         case (7) ! Loam
-            SoilCohesion = 15
+            SoilCohesion = 20
             Friction_angle = 27.5
             Porosity = 0.43
             Dry_Unit_Weight = 13

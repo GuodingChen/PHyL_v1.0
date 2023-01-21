@@ -146,8 +146,6 @@ colorbar_R = 'YlGnBu'
 colorbar_W = plt.get_cmap('GnBu', 8) 
 colorbar_SM = plt.get_cmap('YlGnBu', 8) 
 
-colorbar_PF = plt.get_cmap('BuPu', 10) 
-colorbar_Volume = plt.get_cmap('viridis_r',6)
 
 # prepare the colorbar for FS map
 style_color_FS = np.array([(151, 0, 29),
@@ -164,6 +162,38 @@ norm_FS = colors.BoundaryNorm(boundaries = bounds_FS, ncolors = 7)
 
 colorbar_FS = LinearSegmentedColormap.from_list('my_palette', style_color_FS / 255, N = 7)
 
+style_color_PF = np.array([(243, 243, 243),
+                        (96, 187, 249),
+                        (97, 132, 249), 
+                        (82, 84, 251),
+                        (102, 42, 249),
+                        (151, 41, 249),
+                        (196, 37, 247),
+                        (12, 12, 12)])
+
+
+bounds_PF = np.array([0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6])
+norm_PF = colors.BoundaryNorm(boundaries = bounds_PF, ncolors = 8)
+
+
+colorbar_PF = LinearSegmentedColormap.from_list('my_palette', style_color_PF / 255, N = 8)
+
+
+style_color_Vl = np.array([(221, 75, 15),
+                        (237, 129, 45),
+                        (250, 180, 101), 
+                        (247, 224, 193),
+                        (220, 218, 231),
+                        (174, 165, 206),
+                        (123, 101, 171),
+                        (75, 39, 135)])
+
+
+bounds_Vl = np.array([0, 0.5e5, 1e5, 1.5e5, 2e5, 2.5e5, 3e5, 3.5e5, 4e5])
+norm_Vl = colors.BoundaryNorm(boundaries = bounds_Vl, ncolors = 8)
+
+
+colorbar_Vl = LinearSegmentedColormap.from_list('my_palette', style_color_Vl / 255, N = 8)
 
 
 # read the HDF5 file name
@@ -299,8 +329,8 @@ for group in data.keys() :
                 plt.subplots_adjust(bottom=0.0, top=0.92,left = 0.00, right=0.9 )
 
 
-                im = ax.imshow(variable_matrix, extent = extent_land,
-                            cmap=colorbar_PF, vmin = 0, vmax = 1)
+                im = ax.imshow(variable_matrix, extent=extent_land,
+                            cmap = colorbar_PF, norm = norm_PF)
 
                 ax.plot(x, y+0.004, 'k', linewidth = 1.5)
 
@@ -310,11 +340,14 @@ for group in data.keys() :
                 plt.suptitle(Time_moment, fontsize=16)
                 ax.axis('off')
 
-                cbar_ax = fig.add_axes([0.86, 0.35, 0.035, 0.3])
+                cbar_ax = fig.add_axes([0.86, 0.25, 0.035, 0.5])
                 cbar_ax.tick_params(labelsize=15)
                 cb = plt.colorbar(im, cax=cbar_ax)
-                cb.set_label('$P_{f}$ (-)', fontdict = font1, rotation=0, labelpad=-25, y=1.23)
-                cb.set_ticks([0, 0.2, 0.4, 0.6, 0.8, 1])
+                cb.set_label('$P_{f}$ (%)', fontdict = font1, rotation=0, labelpad=-30, y=1.15)
+
+                cb.set_ticks([0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6])
+
+                cb.set_ticklabels(["=0", "=0", "5", "10", "20", "30", "40", "50", "60"])
                 plt.show()
                 plt.savefig("./PF/" + OutFigure_name, dpi = 300)
                 plt.close()  
@@ -329,7 +362,7 @@ for group in data.keys() :
 
 
                 im = ax.imshow(variable_matrix, extent=extent_land,
-                            cmap=colorbar_Volume, vmin=2*10**5, vmax=5*10**5)
+                            cmap=colorbar_Vl, norm = norm_Vl)
 
                 ax.plot(x, y+0.004, 'k', linewidth = 1.5)
 
@@ -343,8 +376,8 @@ for group in data.keys() :
                 cbar_ax.tick_params(labelsize=15)
                 cb = plt.colorbar(im, cax=cbar_ax, extend="max")
                 cb.set_label('$V_{L}$ ($\mathrm{10^5~m^{3}}$)', fontdict = font1, rotation=0, labelpad=-30, y=1.15)
-                cb.set_ticks( [2*10**5, 2.5*10**5, 3*10**5, 3.5*10**5, 4*10**5, 4.5*10**5, 5*10**5] )
-                cb.set_ticklabels(["2", "2.5", "3", "3.5", "4", "4.5", "5"])
+                cb.set_ticks( [0, 0.5e5, 1e5, 1.5e5, 2e5, 2.5e5, 3e5, 3.5e5, 4e5] )
+                cb.set_ticklabels(["0", "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4"])
                 
                 
                 plt.show()

@@ -505,7 +505,7 @@ Switch to "yes" in 📋Control.Project to confirm the outputs of the spatial pat
 
 #### ✅ Visualization
 
-Enter the "Visualization" folder, run programs `Plot_all.py` and `VideoMaker.py` in sequence, and then check the generated figures and videos.
+Enter the "Visualization" folder, run programs `Plot_all.py` and then check the generated figures and videos.
 
 #### ✅ Example of compiling and running the model in DelftBlue: The TU Delft supercomputer
 

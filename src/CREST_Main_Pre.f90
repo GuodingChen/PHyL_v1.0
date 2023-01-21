@@ -609,7 +609,7 @@ subroutine ReadBasicFile(bIsError)
         where (g_slope_fine == 0)
             g_slope_fine = 0.1
         end where
-        g_slope_fine = g_slope_fine / 1.4
+        
         ! read the landslide slope data
         allocate(g_aspect_fine(0:g_NCols_Land-1,0:g_NRows_Land-1))
 
