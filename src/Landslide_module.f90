@@ -240,7 +240,7 @@ subroutine Landslide_module()
                         write(*,*) "check the a_e and delta_x"
                         stop
                     end if
-                    c_e = 1
+                    
                     z_ellipsoid = (-2*x_ellipsoid/(a_e**2)-SQRT((2*x_ellipsoid/(a_e**2))&
                             **2-4*(1/a_e**2+1/(c_e**2*(TAND(main_slope))**2))*&
                             (x_ellipsoid**2/a_e**2+y_ellipsoid**2/b_e**2-1)))&
