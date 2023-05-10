@@ -34,10 +34,10 @@ subroutine Stability3D_VG(FS_3D, volumn_sum, area_sum, SOIL_CODE, D_raster, SM_I
             Porosity,Dry_Unit_Weight, Theta_r, Thera_s, VG_alpha, VG_n)
 
     ! start the stability loop
-    resist_sum = 0
-    drive_sum = 0
-    volumn_sum = 0
-    area_sum = 0
+    resist_sum = 0.0
+    drive_sum = 0.0
+    volumn_sum = 0.0
+    area_sum = 0.0
     do i_SoilColumn = 1, Npixel_ellipse
 
         if (D_raster(i_SoilColumn) <= 0) then
@@ -54,7 +54,7 @@ subroutine Stability3D_VG(FS_3D, volumn_sum, area_sum, SOIL_CODE, D_raster, SM_I
         Sr_resi = Theta_r / Thera_s
 
         GroundWater_aspect = main_aspect
-        Sr = SM_InEllipse(i_SoilColumn) / 100
+        Sr = SM_InEllipse(i_SoilColumn) / 100.0
 
         if (Sr < Sr_resi ) then
             Sr = Sr_resi + 0.01
@@ -96,8 +96,8 @@ subroutine Stability3D_VG(FS_3D, volumn_sum, area_sum, SOIL_CODE, D_raster, SM_I
         T_s = S_m * COSD(beta_Sm - SlipApparent_dip)
 
         if (z_w == 0) then
-            N_s = 0
-            T_s = 0
+            N_s = 0.0
+            T_s = 0.0
         end if
         ! kN / KN
         resist_force = (c * slipe_surface + &
@@ -221,7 +221,7 @@ subroutine GetSoilParaFrom_SoilCode(SOIL_CODE, SoilCohesion, Friction_angle, &
             Theta_r = 0.198
             Thera_s = 0.481
             VG_alpha = 0.012 * 100 / 9.8
-            VG_n = 2
+            VG_n = 2.0
         case (3) ! Sandy clay
             SoilCohesion = 24.5
             Friction_angle = 22.5
