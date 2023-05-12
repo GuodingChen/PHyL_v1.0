@@ -137,8 +137,7 @@ subroutine CalSlip_GeoInfo(i,j, DEM, Dim1, Dim2, main_aspect, &
     integer, intent(in) :: i,j, Dim1, Dim2
     double precision, intent(in) :: DEM(Dim1,Dim2), main_aspect
     double precision :: z_a, z_b, z_c, z_d, z_f, z_g, z_h, z_i
-    double precision :: dz_dx, dz_dy, aspect_result, rise_run
-    double precision :: Apparent_Dip_yz, Apparent_Dip_xz
+    double precision :: dz_dx, dz_dy, beta_xz, beta_yz
     double precision, intent(out) :: SlipSurface_aspect, SlipSurface_dip, &
                                     slipe_surface, SlipApparent_dip
     ! Find Neighbors pixel
@@ -150,28 +149,46 @@ subroutine CalSlip_GeoInfo(i,j, DEM, Dim1, Dim2, main_aspect, &
     z_g = DEM(j-1, i+1)
     z_h = DEM(j, i+1)
     z_i = DEM(j+1, i+1)
-    dz_dx = ((z_c+2*z_f+z_i)-(z_a+2*z_d+z_g))/8
-    dz_dy = ((z_g+2*z_h+z_i)-(z_a+2*z_b+z_c))/8
-    aspect_result = ATAN2D(dz_dy, -dz_dx)
+    dz_dx = ((z_c+2*z_f+z_i)-(z_a+2*z_d+z_g)) / (8 * CellSize_LandInM)
+    dz_dy = ((z_g+2*z_h+z_i)-(z_a+2*z_b+z_c)) / (8 * CellSize_LandInM)
 
-    if (aspect_result < 0) then
-        SlipSurface_aspect = 90 - aspect_result
-    else if (aspect_result > 90) then
-        SlipSurface_aspect = 360 - aspect_result + 90
-    else
-        SlipSurface_aspect = 90 - aspect_result
+    if (dz_dx == 0 .and. dz_dy == 0) then
+        SlipSurface_dip = 0
+        SlipSurface_aspect  = 0
+        SlipApparent_dip = 0
+    else 
+        beta_xz = ATAND( dz_dx )
+        beta_yz = ATAND( dz_dy )
+        SlipSurface_dip = ATAND( SQRT(dz_dx ** 2 + dz_dy ** 2) )
+
+        if ( beta_xz == 0 .and. beta_yz > 0 ) then
+            SlipSurface_aspect = 180.0 / 2
+        else if ( beta_xz == 0 .and. beta_yz < 0 ) then
+            SlipSurface_aspect = 3 * 180.0 / 2
+        else if ( beta_xz < 0 .and. beta_yz == 0 ) then
+            SlipSurface_aspect = 0
+        else if ( beta_xz > 0 .and. beta_yz == 0 ) then
+            SlipSurface_aspect = 180.0    
+        else if ( beta_xz == 0 .and. beta_yz == 0 ) then
+            SlipSurface_aspect = 0
+        else if ( beta_xz < 0 .and. beta_yz > 0 ) then
+            SlipSurface_aspect = - ATAND( TAND(beta_yz) / TAND(beta_xz) )
+        else if ( beta_xz > 0 .and. beta_yz > 0 ) then
+            SlipSurface_aspect = 180.0 - ATAND( TAND(beta_yz) / TAND(beta_xz) )
+        else if ( beta_xz > 0 .and. beta_yz < 0 ) then
+            SlipSurface_aspect = 180.0 - ATAND( TAND(beta_yz) / TAND(beta_xz) )
+        else 
+            SlipSurface_aspect = 2 * 180 - ATAND( TAND(beta_yz) / TAND(beta_xz) )
+
+        end if
+
+        SlipApparent_dip = ATAND( TAND(SlipSurface_dip) * ABS( COSD(SlipSurface_aspect - main_aspect) ) ) 
+
     end if
 
-    rise_run = SQRT((dz_dx / CellSize_LandInM)**2 + (dz_dy / CellSize_LandInM)**2)
-    SlipSurface_dip = ATAND(rise_run)
 
-    Apparent_Dip_yz = ATAND(TAND(SlipSurface_dip) * COSD(SlipSurface_aspect))
-    Apparent_Dip_xz = ATAND(TAND(SlipSurface_dip) * SIND(SlipSurface_aspect))
-    SlipApparent_dip = ATAND(TAND(SlipSurface_dip) * ABS(COSD(SlipSurface_aspect &
-                        - main_aspect)))
-
-    slipe_surface = CellSize_LandInM * CellSize_LandInM * SQRT(1 - (SIND(Apparent_Dip_xz)) ** 2 &
-                    *(SIND(Apparent_Dip_yz))**2) / (COSD(Apparent_Dip_xz) * COSD(Apparent_Dip_yz))
+    slipe_surface = CellSize_LandInM * CellSize_LandInM * SQRT( 1 - (SIND(beta_xz)) ** 2 &
+                    *(SIND(beta_yz))**2 ) / ( COSD(beta_xz) * COSD(beta_yz) )
     return
 end subroutine CalSlip_GeoInfo
 
