@@ -948,7 +948,7 @@ subroutine ReadParamFile()
 
         ! here cell_size is the resolution of the landslide map in unit of m
         CellSize_LandInM = XXWReadLineDbl(fileName,"cell_size", error)
-
+        
     end if
     ! read the parallel setup
     if (g_ModelCore == 1) then ! only for hydrological modeling
