@@ -86,7 +86,7 @@ subroutine SoilDownscale_pre(SM_coarse)
                 cycle
             end if
 
-            iLoc_coarse = NINT( g_NCols - (((g_NCols_Land-i-1) * &
+            iLoc_coarse = NINT( g_NRows - (((g_NRows_Land-i-1) * &
                     g_CellSize_Land + g_yllCorner_Land) &
                     - g_yllCorner) / g_CellSize - 1)
 
