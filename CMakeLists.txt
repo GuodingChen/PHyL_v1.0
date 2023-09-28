@@ -16,7 +16,7 @@ find_package(OpenMP REQUIRED)
 
 SET(HDF5_USE_STATIC_LIBRARIES ON)
 
-SET(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/opt/homebrew/Cellar/hdf5/1.12.2_1/")
+SET(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/opt/homebrew/Cellar/hdf5/1.14.1/")
 
 find_package(HDF5 MODULE REQUIRED COMPONENTS Fortran HL)
 

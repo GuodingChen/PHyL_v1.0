@@ -60,7 +60,7 @@ subroutine Landslide_module()
     !$OMP&  ellipsoid_number, Npixel_tile, Npixel_residual, CellSize_LandInM, &
     !$OMP&  min_ae, max_ae, min_be, max_be, min_ce, max_ce, window_extend, &
     !$OMP&  x_all, y_all, g_DEM_fine, g_slope_fine, g_aspect_fine, g_soil, g_SM_fine, &
-    !$OMP&  g_NCols, g_NCols_Land,g_CellSize_Land, g_yllCorner, g_CellSize, &
+    !$OMP&  g_NCols, g_NRows, g_NRows_Land, g_NCols_Land,g_CellSize_Land, g_yllCorner, g_CellSize, &
     !$OMP&  g_xllCorner_Land, g_yllCorner_Land, g_xllCorner, g_NoData_Value, &
     !$OMP&  g_cal_count, g_unstable_count, g_failure_volume, g_failure_area, &
     !$OMP&  g_FS_3D, c_e) DEFAULT(PRIVATE)
@@ -172,8 +172,8 @@ subroutine Landslide_module()
                     g_xllCorner_Land - g_xllCorner) &
                     / g_CellSize - 1)
 
-            SOIL_CODE = g_soil(jLoc_coarse, iLoc_coarse)
 
+            SOIL_CODE = g_soil(jLoc_coarse, iLoc_coarse)
 
 
             ! invalid soil code

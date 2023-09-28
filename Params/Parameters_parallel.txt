@@ -4,10 +4,10 @@
 N_Subbasin = 4
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # set the number of threads for hydrological modeling
-NHydroThread = 4
+NHydroThread = 6
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # set the number of total decomposed tiles for 3D slope stability modeling
 Tot_tile = 20
 # set the number of threads for 3D slope stability modeling
-NLandThread = 6
+NLandThread = 4
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
