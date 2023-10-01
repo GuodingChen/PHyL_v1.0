@@ -1,7 +1,15 @@
 cmake_minimum_required(VERSION 3.23)
 
-project(P_HyLand Fortran)
+# please edit the compiler path for your own
+SET(CMAKE_Fortran_COMPILER "/opt/homebrew/bin/gfortran")
+
 enable_language(Fortran)
+
+project(P_HyLand Fortran)
+
+
+# SET(CMAKE_BUILD_TYPE "Debug")
+SET(CMAKE_BUILD_TYPE "Release")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 
@@ -16,18 +24,21 @@ find_package(OpenMP REQUIRED)
 
 SET(HDF5_USE_STATIC_LIBRARIES ON)
 
+# please provide specific path of HDF5 installation
 SET(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/opt/homebrew/Cellar/hdf5/1.14.1/")
 
 find_package(HDF5 MODULE REQUIRED COMPONENTS Fortran HL)
 
 
-message("fortran compiler is ${CMAKE_fortran_COMPILER}")
+message("fortran compiler: ${CMAKE_Fortran_COMPILER_ID}")
+message("fortran compiler version: ${CMAKE_Fortran_COMPILER_VERSION}")
+message("fortran compiler path: ${CMAKE_Fortran_COMPILER}")
 # write the HDF5 finding result
-message("HDF5_FOUND is : ${HDF5_FOUND}")
-message("HDF5_INCLUDE_DIRS is : ${HDF5_INCLUDE_DIRS}")
-message("HDF5_VERSION is : ${HDF5_VERSION}")
-message("HDF5_LIBRARIES is ${HDF5_LIBRARIES}")
-message("HDF5_HL_LIBRARIES is ${HDF5_HL_LIBRARIES}")
+message("HDF5_FOUND: ${HDF5_FOUND}")
+message("HDF5_INCLUDE_DIRS: ${HDF5_INCLUDE_DIRS}")
+message("HDF5_VERSION: ${HDF5_VERSION}")
+message("HDF5_LIBRARIES: ${HDF5_LIBRARIES}")
+message("HDF5_HL_LIBRARIES: ${HDF5_HL_LIBRARIES}")
 
 
 # detect the operating system

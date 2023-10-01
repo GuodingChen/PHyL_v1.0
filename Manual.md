@@ -190,7 +190,12 @@ Build to the target PHyL:
 make
 ```
 
-If all goes well, you will easily get the executable: PHyL_v1
+If all goes well, you will easily get the executable: PHyL_v1. Users can also specify the build type by editing the CMakeLists.txt:
+
+```cmake
+# SET(CMAKE_BUILD_TYPE "Debug")
+SET(CMAKE_BUILD_TYPE "Release")
+```
 
 #### ✅ Run the PHyL for a real project
 

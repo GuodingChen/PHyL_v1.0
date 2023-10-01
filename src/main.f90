@@ -59,7 +59,7 @@ program CREST_Main
     end if
 
     write(*,*)
-    write(*,"(25X,A)") "P_HydroLand"
+    write(*,"(25X,A)") "PHyL_v1.0"
     write(*,"(1X,A)") "A massively parallel coupled hydrological-geotechnical framework"
     write(*,"(25X,'Version ',A)") g_CREST_Version
 
@@ -72,9 +72,9 @@ program CREST_Main
     call XXWGetFreeFile(g_CREST_LogFileID)
 
     open(g_CREST_LogFileID,file &
-            = "logs//"//"P_HydroLand-"//trim(g_strD)//".log",form='formatted')
+            = "logs//"//"PHyL_v1.0-"//trim(g_strD)//".log",form='formatted')
 
-    write(g_CREST_LogFileID,"(25X,A)") "P_HydroLand"
+    write(g_CREST_LogFileID,"(25X,A)") "PHyL_v1.0"
     write(g_CREST_LogFileID,"(1X,A)") "A massively parallel coupled &
             hydrological-geotechnical framework"
     write(g_CREST_LogFileID,"(25X,'Version ',A)") g_CREST_Version
