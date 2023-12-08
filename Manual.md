@@ -119,36 +119,36 @@ The following file tree includes a detailed description:
 
 #### Parameters in PHyL
 
-| Parameters    | Description                                                  | Unit       | Ranges      |
-| :------------ | :----------------------------------------------------------- | ---------- | ----------- |
-| $K_{sat}$     | Soil  saturated hydraulic conductivity                       | $mm/h$     | /           |
-| $WM$          | Soil water  storage capacity                                 | $mm$       | /           |
-| $B$           | The exponent  of the variable infiltration curve             | -          | [0.05, 1.5] |
-| $IM$          | Impervious  area ratio                                       | -          | /           |
-| $coeM$        | The overland  runoff velocity coefficient                    | -          | [1, 150]    |
-| $expM$        | The overland  flow speed exponent                            | -          | [0.1, 0.55] |
-| $coeR$        | The flow  speed ratio of channel to overland                 | -          | [1, 3]      |
-| $coeS$        | The flow  speed ratio of interflow to overland               | -          | [0.01, 1]   |
-| $KS$          | Overland  reservoir discharge parameter                      | -          | [0.001, 1]  |
-| $KI$          | Interflow  reservoir discharge parameter                     | -          | [0.001, 1]  |
-| $c_s$         | Soil  cohesion                                               | $kPa$      | /           |
-| $\gamma_{s}$  | The unit  weight of dry soil                                 | $kN/m^{3}$ | /           |
-| $\varphi$     | The angle of  internal friction (in dgree)                   | °          | /           |
-| $\theta_{s}$  | Soil saturated  moisture content                             | $m^3/m^3$  | /           |
-| $\theta_{r}$  | Soil residual  moisture content                              | $m^3/m^3$  | /           |
-| $\alpha$      | Inverse of  air entry pressure for water saturated soil      | $kPa^{-1}$ | /           |
-| $n$           | Pore size  distribution parameter                            | -          | /           |
-| $D_{e}$       | Density  sampling for random ellipsoids (potential landslides) | -          | [10, 1000]  |
-| $a_{e,min}$   | Minimum of the  major semiaxis of a random ellipse           | m          | /           |
-| $a_{e,max}$   | Maximum of  the major semiaxis of a random ellipse           | m          | /           |
-| $b_{e,min}$   | Minimum of  the minor semiaxis of a random ellipse           | m          | /           |
-| $b_{e,max}$   | Maximum of  the minor semiaxis of a random ellipse           | m          | /           |
-| $c_{e,min}$   | Minimum of  the landslide depth                              | m          | /           |
-| $c_{e,max}$   | Maximum of  the landslide depth                              | m          | /           |
-| $N_{sub}$     | Number of  the sub-basin in a drainage basin                 | -          | /           |
-| $N_{tile}$    | Number of  tiles decomposing the whole area                  | -          | /           |
-| $N_{Hthread}$ | Number of parallel  processes for the hydrological module    | -          | /           |
-| $N_{Lthread}$ | Number of parallel  processes for the slope stability module | -          | /           |
+| Parameters    | Description                                                  | Unit            | Ranges      |
+| :------------ | :----------------------------------------------------------- | --------------- | ----------- |
+| $K_{sat}$     | Soil  saturated hydraulic conductivity                       | $\rm{mm/h}$     | /           |
+| $WM$          | Soil water  storage capacity                                 | $\rm{mm}$       | /           |
+| $B$           | The exponent  of the variable infiltration curve             | -               | [0.05, 1.5] |
+| $IM$          | Impervious  area ratio                                       | -               | /           |
+| $coeM$        | The overland  runoff velocity coefficient                    | -               | [1, 150]    |
+| $expM$        | The overland  flow speed exponent                            | -               | [0.1, 0.55] |
+| $coeR$        | The flow  speed ratio of channel to overland                 | -               | [1, 3]      |
+| $coeS$        | The flow  speed ratio of interflow to overland               | -               | [0.01, 1]   |
+| $KS$          | Overland  reservoir discharge parameter                      | -               | [0.001, 1]  |
+| $KI$          | Interflow  reservoir discharge parameter                     | -               | [0.001, 1]  |
+| $c_s$         | Soil  cohesion                                               | $\rm{kPa}$      | /           |
+| $\gamma_{s}$  | The unit  weight of dry soil                                 | $\rm{kN/m^{3}}$ | /           |
+| $\varphi$     | The angle of  internal friction (in dgree)                   | °               | /           |
+| $\theta_{s}$  | Soil saturated  moisture content                             | $\rm{m^3/m^3}$  | /           |
+| $\theta_{r}$  | Soil residual  moisture content                              | $\rm{m^3/m^3}$  | /           |
+| $\alpha$      | Inverse of  air entry pressure for water saturated soil      | $\rm{kPa^{-1}}$ | /           |
+| $n$           | Pore size  distribution parameter                            | -               | /           |
+| $D_{e}$       | Density  sampling for random ellipsoids (potential landslides) | -               | [10, 1000]  |
+| $a_{e,min}$   | Minimum of the  major semiaxis of a random ellipse           | $\rm{m}$        | /           |
+| $a_{e,max}$   | Maximum of  the major semiaxis of a random ellipse           | $\rm{m}$        | /           |
+| $b_{e,min}$   | Minimum of  the minor semiaxis of a random ellipse           | $\rm{m}$        | /           |
+| $b_{e,max}$   | Maximum of  the minor semiaxis of a random ellipse           | $\rm{m}$        | /           |
+| $c_{e,min}$   | Minimum of  the landslide depth                              | $\rm{m}$        | /           |
+| $c_{e,max}$   | Maximum of  the landslide depth                              | $\rm{m}$        | /           |
+| $N_{sub}$     | Number of  the sub-basin in a drainage basin                 | -               | /           |
+| $N_{tile}$    | Number of  tiles decomposing the whole area                  | -               | /           |
+| $N_{Hthread}$ | Number of parallel  processes for the hydrological module    | -               | /           |
+| $N_{Lthread}$ | Number of parallel  processes for the slope stability module | -               | /           |
 
 Note: the parameters without ranges are determined by inputs (e.g., soil texture or field data) or user-defined.
 
@@ -476,37 +476,39 @@ For the landslides, in-situ measurements (e.g., $L$, $W$, $V_L$, and $A_L$ of fa
 
 Switch to "yes" in 📋Control.Project to confirm the outputs of the spatial patterns. Check all the results in the folder of "Results".
 
-**GOVar_Rain**: the input precipitation; unit is mm/hour.
+**GOVar_Rain**: the input precipitation ($\rm{mm/h}$).
 
-**GOVar_PET**: the input evapotranspiration; unit is mm/hour.
+**GOVar_PET**: the input evapotranspiration ($\rm{mm/h}$).
 
-**GOVar_EPot**:  the potential ET; unit is mm/hour.
+**GOVar_EPot**:  the potential ET ($\rm{mm/h}$).
 
-**GOVar_EAct**: the actual ET; unit is mm/hour.
+**GOVar_EAct**: the actual ET ($\rm{mm/h}$).
 
-**GOVar_W**: the depth of water filling the pore space bucket "WM".
+**GOVar_W**: the depth of water filling the pore space bucket "WM" ($\rm{mm}$).
 
-**GOVar_SM**: degree of soil moisture. 
+**GOVar_SM**: degree of soil moisture ($\rm{\%}$). 
 
-**GOVar_R**: the simulated discharge of each grid cell; unit is $m³/s$.
+**GOVar_R**: the simulated discharge of each grid cell ($\rm{m³/s}$).
 
-**GOVar_ExcS**: the depth of surface excess rain; unit is mm/hour.
+**GOVar_ExcS**: the depth of surface excess rain ($\rm{mm/h}$).
 
-**GOVar_ExcI**: the depth of interflow excess rain; unit is mm/hour.
+**GOVar_ExcI**: the depth of interflow excess rain ($\rm{mm/h}$).
 
-**GOVar_RS**: the depth of overland flow; unit is mm/hour.
+**GOVar_RS**: the depth of overland flow ($\rm{mm/h}$).
 
-**GOVar_RI**: the depth of interflow flow; unit is mm/hour.
+**GOVar_RI**: the depth of interflow flow ($\rm{mm/h}$).
 
-**GOVar_FS**: the factor of safety calculated by infinite stability model.
+**GOVar_FS**: the factor of safety calculated by infinite stability model ($-$).
 
-**GOVar_FS3D**: the factor of safety calculated by 3D stability model.
+**GOVar_FS3D**: the factor of safety calculated by 3D stability model ($-$).
 
-**GOVar_PF**: the probability of landslide occurrence.
+**GOVar_PF**: the probability of landslide occurrence ($-$).
 
-**GOVar_FVolume**: the volume of landslide; unit is $m^3$.
+**GOVar_FVolume**: the volume of landslide ($\rm{m^3}$).
 
-**GOVar_FArea**: the surface area of landslide; unit is $m^2$.
+**GOVar_FArea**: the surface area of landslide ($\rm{m^2}$).
+
+‼️**When selecting HDF5 as the output format, it is important to note that all resultant values undergo a 100-fold magnification before storage, aimed at minimizing storage space. Consequently, when utilizing this data from HDF5 files, precision in retrieving the accurate values is essential.**
 
 #### ✅ Visualization
 
