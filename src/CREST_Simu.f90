@@ -526,7 +526,7 @@ subroutine CREST_Simu()
             call omp_set_num_threads(Nthread_Land)
 
             g_SM_fine = g_NoData_Value
-            g_FS_3D = -g_NoData_Value
+            g_FS_3D = g_NoData_Value
             g_failure_volume = g_NoData_Value
             g_failure_area = g_NoData_Value
             g_probability = g_NoData_Value

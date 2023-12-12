@@ -344,17 +344,19 @@ subroutine Landslide_module()
                     end if
 
                 end if
-
-                if (g_FS_3D(j_LandMap, i_LandMap) > FS_3D) then
-                    ! that is to say this pixel has been calculated already
-                    ! and the FS value is smaller than current landslide.
-                    ! So keep the old value and go to the next loop
-
-
-                    g_FS_3D(j_LandMap, i_LandMap) =  FS_3D
-
-
-                end if
+                ! compare the previous FS and new FS for pixel
+                if (g_FS_3D(j_LandMap, i_LandMap) == g_NoData_Value ) then 
+                    ! The pixel is calculated for the first time
+                    g_FS_3D(j_LandMap, i_LandMap) = FS_3D
+                else
+                    ! The pixel has been counted at least once and needs to be calculated iteratively
+                    ! get the smaller FS
+                    if ( g_FS_3D(j_LandMap, i_LandMap) > FS_3D ) then
+                        ! and the FS value is smaller than current landslide.
+                        ! So keep the old value and go to the next loop
+                        g_FS_3D(j_LandMap, i_LandMap) =  FS_3D
+                    end if
+                end if 
 
 
             end do
@@ -376,10 +378,6 @@ subroutine Landslide_module()
     LandTime_end = OMP_get_wtime()
     LandRunTime = LandRunTime + (LandTime_end - LandTime_start)
 
-    ! return NoData_value to g_FS_3D
-    where (g_FS_3D == - g_NoData_Value)
-        g_FS_3D = g_NoData_Value
-    end where
 
     where (g_cal_count > 0)
         g_probability = g_unstable_count / g_cal_count
