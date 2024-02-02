@@ -15,8 +15,7 @@ subroutine Parallel_hydro_pre()
 
     integer, allocatable :: Channel_FAC(:), Residual_Channel_FAC(:)
     integer,allocatable :: g_FDR_forSub(:,:), g_SubMask(:,:)
-
-
+    ! get the cell number of stream first, and then set the RAM
     write(*,"(2X,A)")  "start parallel preprocessing"
     Npixel_channel = count(g_Stream == 1)
 
@@ -34,6 +33,7 @@ subroutine Parallel_hydro_pre()
 
     g_FDR_forSub = g_FDR
     g_SubMask = g_Mask
+
     ! record the channel cell and associated index
     channel_count = 1
     do i=0,g_NRows-1
@@ -47,31 +47,39 @@ subroutine Parallel_hydro_pre()
             end if
         end do
     end do
-    ! calculate the next index
+
+    ! calculate the next routing index for all stream cells
+
+    ! record the index for outlet first, and it has no next cell in stream within considered mask
     outlet_index = maxloc(Channel_FAC, 1)
 
-    do i_channel_pixel = 1, Npixel_channel-1
+    do i_channel_pixel = 1, Npixel_channel
+        if (i_channel_pixel /= outlet_index) then
 
-        i_next = g_NextR(ChannelIndex_Cols(i_channel_pixel), ChannelIndex_Rows(i_channel_pixel))
-        j_next = g_NextC(ChannelIndex_Cols(i_channel_pixel), ChannelIndex_Rows(i_channel_pixel))
-        do j_channel_pixel = 1, Npixel_channel
-            if(i_next == ChannelIndex_Rows(j_channel_pixel) .and. &
-                    j_next == ChannelIndex_Cols(j_channel_pixel))then
-                NextChannel(i_channel_pixel) = j_channel_pixel
-            end if
+            i_next = g_NextR(ChannelIndex_Cols(i_channel_pixel), ChannelIndex_Rows(i_channel_pixel))
+            j_next = g_NextC(ChannelIndex_Cols(i_channel_pixel), ChannelIndex_Rows(i_channel_pixel))
+            ! the next routing cell must can be found in Stream
+            do j_channel_pixel = 1, Npixel_channel
+                if(i_next == ChannelIndex_Rows(j_channel_pixel) .and. &
+                        j_next == ChannelIndex_Cols(j_channel_pixel))then
 
-        end do
+                    ! the next routing cell locates at "j_channel_pixel" index number
+                    NextChannel(i_channel_pixel) = j_channel_pixel
+
+                end if
+
+            end do
+        else 
+            NextChannel(i_channel_pixel) = 2 * Npixel_channel
+        end if 
     end do
-    NextChannel(outlet_index) = outlet_index + 1
-
+   
     ! creat the sub-basins according to the parameter of N_subbasin
     FAC_divide = N_Subbasin
     Residual_Channel_FAC = 0
     do i_basin = 1, N_Subbasin - 1
 
         write(i_basin_str , '(i3)') i_basin
-
-
 
         FAC_Subbasin_outlet = maxval(Channel_FAC) / FAC_divide
 
@@ -91,12 +99,13 @@ subroutine Parallel_hydro_pre()
 
         ! determine the FAC value at basin outlet (FAC_mac is not divisible by Ncore)
         FAC_Subbasin_outlet = Channel_FAC(Index_Subbasin_outlet)
-        ! ger the coordination of the identified basin outlet pixel
+        ! get the coordination of the identified basin outlet pixel
         ii = ChannelIndex_Rows(Index_Subbasin_outlet)
         jj = ChannelIndex_Cols(Index_Subbasin_outlet)
         ! save the channel connection in
         Channel_connect(i_basin) = Index_Subbasin_outlet
 
+        ! get the sunbasin mask based on Sub_outlet index (jj, ii)
         call GetMask(g_NCols,g_NRows, jj, ii, &
                 g_NoData_Value,g_FDR_forSub,g_NextC,g_NextR,  &
                 g_SubMask,InBasin)
@@ -107,25 +116,35 @@ subroutine Parallel_hydro_pre()
                 g_XLLCorner,g_YLLCorner, g_CellSize, g_NoData_Value, &
                 bIsError,g_BasicFormat)
 
-        ! up date the FAC value for all channel pixel, by subtracting the subwatershed
+        ! up date the FAC value in the loop of stream cell
 
+        ! there is a principle strictly followed:
+        ! each cell in the basin will eventually routes to the outlet point
+
+        ! Then, all the cells that routes to subbasin outlet are excluded from 
+        ! the whole basin by assign the 0 FAC values 
         do i_channel_pixel = 1, Npixel_channel
-
+            
             NextChannel_index = NextChannel(i_channel_pixel)
-            do while(NextChannel_index < Npixel_channel)
 
+            ! This means that all the cells passed by cell "i_channel_pixel" 
+            ! and finally route to the subbasin outlet are found 
+            do while( NextChannel_index /= NextChannel(outlet_index) )
+                
                 if(NextChannel_index == Index_Subbasin_outlet)then
                     Channel_FAC(i_channel_pixel) = g_NoData_Value
                     exit
                 end if
-!
+
                 NextChannel_index = NextChannel(NextChannel_index)
             end do
         end do
-
+        
+        ! All downstream cells corresponding to the subbasin need 
+        ! to update their FAC values.
         Channel_FAC(Index_Subbasin_outlet) = Channel_FAC(Index_Subbasin_outlet) - FAC_Subbasin_outlet
         NextChannel_index = NextChannel(Index_Subbasin_outlet)
-        do while(NextChannel_index <= Npixel_channel)
+        do while(NextChannel_index /= NextChannel(outlet_index))
 
             Channel_FAC(NextChannel_index) = Channel_FAC(NextChannel_index) - FAC_Subbasin_outlet
 
@@ -136,9 +155,6 @@ subroutine Parallel_hydro_pre()
             end if
 
         end do
-
-
-
 
         ! update the mask file
         where(g_SubMask == 1)

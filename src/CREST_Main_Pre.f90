@@ -557,7 +557,13 @@ subroutine ReadBasicFile(bIsError)
             g_Slope_angle, g_NCols,g_NRows,   &
             g_XLLCorner,g_YLLCorner, g_CellSize, g_NoData_Value,  &
             bIsError,g_BasicFormat)
-
+    
+    ! Limit the matrix to the mask area
+    where(g_Mask == g_NoData_Value)
+        g_FDR = g_NoData_Value
+        g_FAC = g_NoData_Value
+        g_Stream = g_NoData_Value
+    end where
 
     if (g_ModelCore == 3) then
         ! read the landslide mask data
