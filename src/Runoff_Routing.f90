@@ -55,7 +55,7 @@ subroutine CREST_RouteTreat(NextTime,toRowA,toColA,toPerA,  &
                     toPerA(j,i)=toPerB(j,i)
 
                     if(toRowA(j,i)/=g_NoData_Value)then
-                        if(InBasin(toColA(j,i),toRowA(j,i)))then
+                        if( g_Mask(toColA(j,i),toRowA(j,i)) /= g_NoData_Value )then
 
                             toRowB(j,i) = g_NextR(toColA(j,i),toRowA(j,i))
 
